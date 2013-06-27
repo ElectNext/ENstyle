@@ -1,12 +1,11 @@
 # Ruby Style Guide
 
-These are standards and conventions we use for Ruby code at Airbnb. Please take
-what is useful to you.
-
-We based our Ruby style on the excellent [Github Ruby Styleguide][github-ruby],
+These are standards and conventions we use for Ruby code at [ElectNext](https://electnext.com).
+We've based it off of the awesome AirBnB Styleguide, which was based on the excellent [Github Ruby Styleguide][github-ruby],
 which in turn was inspired by [Bozhidar Batsov's guide][bbatsov-ruby].
 
-We also maintain a [JavaScript Style Guide][airbnb-javascript].
+Be like Bruce Lee and take what is useful.
+
 
 ## <a name='TOC'>Table of Contents</a>
   1.  [Whitespace](#whitespace)
@@ -991,7 +990,7 @@ in inheritance.
 
 &mdash;[Google C++ Style Guide][google-c++]
 
-[airbnb-javascript]: https://github.com/airbnb/javascript
+[airbnb-ruby]: https://github.com/airbnb/ruby
 [bbatsov-ruby]: https://github.com/bbatsov/ruby-style-guide
 [github-ruby]: https://github.com/styleguide/ruby
 [google-c++]: http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml
