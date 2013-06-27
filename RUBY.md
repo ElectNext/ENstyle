@@ -1,7 +1,8 @@
 # Ruby Style Guide
 
 These are standards and conventions we use for Ruby code at [ElectNext](https://electnext.com).
-We've based it off of the awesome AirBnB Styleguide, which was based on the excellent [Github Ruby Styleguide][github-ruby],
+We've based it off of the awesome [AirBnB Styleguide][airbnb-ruby], 
+which was based on the excellent [Github Ruby Styleguide][github-ruby],
 which in turn was inspired by [Bozhidar Batsov's guide][bbatsov-ruby].
 
 Be like Bruce Lee and take what is useful.
