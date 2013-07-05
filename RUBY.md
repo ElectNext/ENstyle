@@ -29,6 +29,7 @@ Be like Bruce Lee and take what is useful.
   14. [Be Consistent](#be-consistent)
   15. [Object Oriented Design](#rails-conventions-and-object-oriented-design)
       1. [Instance methods](#instance-methods)
+      2. [HTTP Requests](#http-requests)
 
 ## Whitespace
 
