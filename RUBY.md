@@ -883,6 +883,29 @@ Changes to an object should occur in instance methods, not in class methods, con
     end
     ```
 
+### HTTP Requests
+
+HTTP Requests should always have handling for timeouts, client errors, and
+server errors. If the requirements entail serving a client web page
+immediately after the response, the timeout limit should be no longer than
+3 seconds. How this is done depends on the library being used. Here is an
+example using HTTParty:
+
+  ```Ruby
+  begin
+    response = Timeout::timeout(3) { self.get(query_url) }
+  rescue Timeout::Error => e
+    Rails.logger.warn "#{e.message} for #{query_url}"
+    # other handling as needed...
+  end
+
+  # HTTParty doesn't throw exceptions for client errors and server errors
+  if (defined? response.code) && response.code >= 400
+    Rails.logger.warn "#{response.code} for #{query_url}"
+    # other handling as needed...
+  end
+  ```
+
 &mdash;[Google C++ Style Guide][google-c++]
 
 [airbnb-ruby]: https://github.com/airbnb/ruby
