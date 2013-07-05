@@ -27,6 +27,9 @@ Be like Bruce Lee and take what is useful.
   12. [Regular Expressions](#regular-expressions)
   13. [Percent Literals](#percent-literals)
   14. [Be Consistent](#be-consistent)
+  15. [Object Oriented Design](#rails-conventions-and-object-oriented-design)
+      1. [Instance methods](#instance-methods)
+      2. [HTTP Requests](#http-requests)
 
 ## Whitespace
 
@@ -205,7 +208,7 @@ module Translation
                                :"en-NZ" => AmericanToKiwi.new,
                              } }
     end
-  
+
   ...
 
   # Applies transforms to American English that are common to
@@ -213,7 +216,7 @@ module Translation
   class AmericanToColonial
     ...
   end
-  
+
   # Converts American to British English.
   # In addition to general Colonial English variations, changes "apartment"
   # to "flat".
@@ -976,18 +979,68 @@ in inheritance.
 
 ## Be Consistent
 
-> If you're editing code, take a few minutes to look at the code around you and
-> determine its style. If they use spaces around all their arithmetic
-> operators, you should too. If their comments have little boxes of hash marks
-> around them, make your comments have little boxes of hash marks around them
-> too.
+If you're editing code, take a few minutes to look at the code around you and
+determine its style. If they use spaces around all their arithmetic
+operators, you should too. If their comments have little boxes of hash marks
+around them, make your comments have little boxes of hash marks around them
+too.
 
-> The point of having style guidelines is to have a common vocabulary of coding
-> so people can concentrate on what you're saying rather than on how you're
-> saying it. We present global style rules here so people know the vocabulary,
-> but local style is also important. If code you add to a file looks
-> drastically different from the existing code around it, it throws readers out
-> of their rhythm when they go to read it. Avoid this.
+The point of having style guidelines is to have a common vocabulary of coding
+so people can concentrate on what you're saying rather than on how you're
+saying it. We present global style rules here so people know the vocabulary,
+but local style is also important. If code you add to a file looks
+drastically different from the existing code around it, it throws readers out
+of their rhythm when they go to read it. Avoid this.
+
+## Rails Conventions and Object Oriented Design
+
+### Instance methods
+
+Changes to an object should occur in instance methods, not in class methods, controller methods, etc.
+
+    ```Ruby
+    # bad
+    profile_views = ProfileView.where(:article_id => article_id)
+
+    profile_views.each do |pv|
+      if pv.politician_id == politician_id
+        pv.destroy
+      elsif pv.seen_with.include?(politician_id)
+        pv.seen_with.delete(politician_id)
+        pv.save!
+      end
+    end
+
+    # good
+    profile_views = ProfileView.where(:article_id => params[:id])
+
+    profile_views.each do |pv|
+      pv.remove_politician(params[:politician_id])
+    end
+    ```
+
+### HTTP Requests
+
+HTTP Requests should always have handling for timeouts, client errors, and
+server errors. If the requirements entail serving a client web page
+immediately after the response, the timeout limit should be no longer than
+3 seconds. How this is done depends on the library being used. Here is an
+example using HTTParty:
+
+  ```Ruby
+  begin
+    response = Timeout::timeout(3) { self.get(query_url) }
+  rescue Timeout::Error => e
+    Rails.logger.warn "#{e.message} for #{query_url}"
+    # other handling as needed...
+  end
+
+  # HTTParty doesn't throw exceptions for client errors and server errors
+  if (defined? response.code) && response.code >= 400
+    Rails.logger.warn "#{response.code} for #{query_url}"
+    # other handling as needed...
+  end
+  ```
 
 &mdash;[Google C++ Style Guide][google-c++]
 
