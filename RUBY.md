@@ -27,6 +27,8 @@ Be like Bruce Lee and take what is useful.
   12. [Regular Expressions](#regular-expressions)
   13. [Percent Literals](#percent-literals)
   14. [Be Consistent](#be-consistent)
+  15. [Object Oriented Design](#rails-conventions-and-object-oriented-design)
+      1. [Instance methods](#instance-methods)
 
 ## Whitespace
 
@@ -168,142 +170,7 @@ Be like Bruce Lee and take what is useful.
 
 ## Commenting
 
-> Though a pain to write, comments are absolutely vital to keeping our code
-> readable. The following rules describe what you should comment and where. But
-> remember: while comments are very important, the best code is
-> self-documenting. Giving sensible names to types and variables is much better
-> than using obscure names that you must then explain through comments.
 
-> When writing your comments, write for your audience: the next contributor who
-> will need to understand your code. Be generous — the next one may be you!
-
-&mdash;[Google C++ Style Guide][google-c++]
-
-Portions of this section borrow heavily from the Google
-[C++][google-c++-comments] and [Python][google-python-comments] style guides.
-
-### File/class-level comments
-
-Every class definition should have an accompanying comment that describes what
-it is for and how it should be used.
-
-A file that contains zero classes or more than one class should have a comment
-at the top describing its contents.
-
-```ruby
-# Automatic conversion of one locale to another where it is possible, like
-# American to British English.
-module Translation
-  # Class for converting between text between similar locales.
-  # Right now only conversion between American English -> British, Canadian,
-  # Australian, New Zealand variations is provided.
-  class PrimAndProper
-    def initialize
-      @converters = { :en => { :"en-AU" => AmericanToAustralian.new,
-                               :"en-CA" => AmericanToCanadian.new,
-                               :"en-GB" => AmericanToBritish.new,
-                               :"en-NZ" => AmericanToKiwi.new,
-                             } }
-    end
-  
-  ...
-
-  # Applies transforms to American English that are common to
-  # variants of all other English colonies.
-  class AmericanToColonial
-    ...
-  end
-  
-  # Converts American to British English.
-  # In addition to general Colonial English variations, changes "apartment"
-  # to "flat".
-  class AmericanToBritish < AmericanToColonial
-    ...
-  end
-```
-
-All files, including data and config files, should have file-level comments. From ```translation/config/colonial_spelling_variants.yml```:
-
-```ruby
-# List of American-to-British spelling variants.
-#
-# This list is made with
-# lib/tasks/list_american_to_british_spelling_variants.rake.
-#
-# It contains words with general spelling variation patterns:
-#   [trave]led/lled, [real]ize/ise, [flav]or/our, [cent]er/re, plus
-# and these extras:
-#   learned/learnt, practices/practises, airplane/aeroplane, ...
-
-sectarianizes: sectarianises
-neutralization: neutralisation
-...
-```
-
-### Function comments
-
-Every function declaration should have comments immediately preceding it that
-describe what the function does and how to use it. These comments should be
-descriptive ("Opens the file") rather than imperative ("Open the file"); the
-comment describes the function, it does not tell the function what to do. In
-general, these comments do not describe how the function performs its task.
-Instead, that should be left to comments interspersed in the function's code.
-
-Every function should mention what the inputs and outputs are, unless it meets
-all of the following criteria:
-
-* not externally visible
-* very short
-* obvious
-
-You may use whatever format you wish. In Ruby, two popular function
-documentation schemes are [TomDoc](http://tomdoc.org/) and
-[YARD](http://rubydoc.info/docs/yard/file/docs/GettingStarted.md). You can also
-just write things out concisely:
-
-```ruby
-# Return the fallback locales for the_locale.
-# If opts[:exclude_default] is set, the default locale, which is otherwise
-# always the last one in the returned list, will be excluded.
-#
-# For example:
-#   fallbacks_for(:"pt-BR")
-#     => [:"pt-BR", :pt, :en]
-#   fallbacks_for(:"pt-BR", :exclude_default => true)
-#     => [:"pt-BR", :pt]
-def fallbacks_for(the_locale, opts = {})
-  ...
-end
-```
-
-### Block and inline comments
-
-The final place to have comments is in tricky parts of the code. If you're
-going to have to explain it at the next code review, you should comment it now.
-Complicated operations get a few lines of comments before the operations
-commence. Non-obvious ones get comments at the end of the line.
-
-```ruby
-def fallbacks_for(the_locale, opts = {})
-  # dup() to produce an array that we can mutate.
-  ret = @fallbacks[the_locale].dup
-
-  # We make two assumptions here:
-  # 1) There is only one default locale (that is, it has no less-specific
-  #    children).
-  # 1) The default locale is just a language. (Like :en, and not :"en-US".)
-  if opts[:exclude_default] &&
-      ret.last == self.default_locale &&
-      ret.last != language_from_locale(the_locale)
-    ret.pop
-  end
-
-  ret
-end
-```
-
-On the other hand, never describe the code. Assume the person reading the code
-knows the language (though not what you're trying to do) better than you do.
 
 ### Punctuation, Spelling and Grammar
 
@@ -988,6 +855,33 @@ in inheritance.
 > but local style is also important. If code you add to a file looks
 > drastically different from the existing code around it, it throws readers out
 > of their rhythm when they go to read it. Avoid this.
+
+## Rails Conventions and Object Oriented Design
+
+### Instance methods
+
+Changes to an object should occur in instance methods, not in class methods, controller methods, etc.
+
+    ```Ruby
+    # bad
+    profile_views = ProfileView.where(:article_id => article_id)
+
+    profile_views.each do |pv|
+      if pv.politician_id == politician_id
+        pv.destroy
+      elsif pv.seen_with.include?(politician_id)
+        pv.seen_with.delete(politician_id)
+        pv.save!
+      end
+    end
+
+    # good
+    profile_views = ProfileView.where(:article_id => params[:id])
+
+    profile_views.each do |pv|
+      pv.remove_politician(params[:politician_id])
+    end
+    ```
 
 &mdash;[Google C++ Style Guide][google-c++]
 
