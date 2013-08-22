@@ -719,6 +719,7 @@ in inheritance.
         # ...
       end
     end
+    ```
 
 ## Exceptions
 
@@ -844,7 +845,7 @@ in inheritance.
 
 Use hashrocket syntax for Hash literals instead of the JSON style introduced in 1.9.
 
-	```
+	
 	#bad
 	user = {
 		login: "Defunkt",
@@ -865,7 +866,7 @@ Use hashrocket syntax for Hash literals instead of the JSON style introduced in 
 		"followers-count" => 52390235
 	}
 
-	```
+	
 
 ## Regular Expressions
 
@@ -969,7 +970,7 @@ of their rhythm when they go to read it. Avoid this.
 
 Changes to an object should occur in instance methods, not in class methods, controller methods, etc.
 
-    ```
+    
     # bad
     profile_views = ProfileView.where(:article_id => article_id)
 
@@ -988,7 +989,7 @@ Changes to an object should occur in instance methods, not in class methods, con
     profile_views.each do |pv|
       pv.remove_politician(params[:politician_id])
     end
-    ```
+    
 
 ### HTTP Requests
 
@@ -1013,7 +1014,6 @@ example using HTTParty:
   end
   ```
 
-&mdash;[Google C++ Style Guide][google-c++]
 
 [airbnb-ruby]: https://github.com/airbnb/ruby
 [bbatsov-ruby]: https://github.com/bbatsov/ruby-style-guide
