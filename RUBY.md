@@ -41,7 +41,7 @@ Be like Bruce Lee and take what is useful.
 * Use spaces around operators; after commas, colons, and semicolons; and around
   `{` and before `}`.
 
-    ```Ruby
+    ```
     sum = 1 + 2
     a, b = 1, 2
     1 > 2 ? true : false; puts 'Hi'
@@ -50,7 +50,7 @@ Be like Bruce Lee and take what is useful.
 
 * No spaces after `(`, `[` or before `]`, `)`.
 
-    ```Ruby
+    ```
     some(arg).other
     [1, 2, 3].length
     ```
@@ -61,7 +61,7 @@ Be like Bruce Lee and take what is useful.
 
 * Indent `when` as deep as `case`.
 
-    ```Ruby
+    ```
     case
     when song.name == 'Misty'
       puts 'Not again!'
@@ -88,7 +88,7 @@ Be like Bruce Lee and take what is useful.
 * Add a new line after `if` conditions span multiple lines to help
   differentiate between the conditions and the body.
 
-    ```ruby
+    ```
     if @reservation_alteration.checkin == @reservation.start_date &&
        @reservation_alteration.checkout == (@reservation.start_date + @reservation.nights)
 
@@ -113,7 +113,7 @@ Be like Bruce Lee and take what is useful.
       "&&" and "||"
 
 
-    ```ruby
+    ```
     scope = Translation::Phrase.includes(:phrase_translations).
       joins(:phrase_screenshots).
       where(:phrase_screenshots => {
@@ -122,7 +122,7 @@ Be like Bruce Lee and take what is useful.
       })
     ```
 
-    ```ruby
+    ```
     translation = FactoryGirl.create(
       :phrase_translation,
       :locale => :is,
@@ -133,7 +133,7 @@ Be like Bruce Lee and take what is useful.
     )
     ```
 
-    ```ruby
+    ```
     if @reservation_alteration.checkin == @reservation.start_date &&
        @reservation_alteration.checkout == (@reservation.start_date + @reservation.nights)
 
@@ -141,7 +141,7 @@ Be like Bruce Lee and take what is useful.
     end
     ```
 
-    ```ruby
+    ```
     <% if @presenter.guest_visa_russia? %>
       <%= icon_tile_for(I18n.t("email.reservation_confirmed_guest.visa.details_header",
                                :default => "Visa for foreign Travelers"),
@@ -154,7 +154,7 @@ Be like Bruce Lee and take what is useful.
 
     These code snippets are very much more readable than the alternative:
 
-    ```ruby
+    ```
     scope = Translation::Phrase.includes(:phrase_translations).joins(:phrase_screenshots).where(:phrase_screenshots => { :controller => controller_name, :action => JAROMIR_JAGR_SALUTE })
 
     translation = FactoryGirl.create(:phrase_translation, :locale => :is, :phrase => phrase, :key => 'phone_number_not_revealed_time_zone', :value => 'Símanúmerið þitt verður ekki birt. Það er aðeins hægt að hringja á milli 9:00 og 21:00 %{time_zone}.')
@@ -186,63 +186,6 @@ Be like Bruce Lee and take what is useful.
 Portions of this section borrow heavily from the Google
 [C++][google-c++-comments] and [Python][google-python-comments] style guides.
 
-### File/class-level comments
-
-Every class definition should have an accompanying comment that describes what
-it is for and how it should be used.
-
-A file that contains zero classes or more than one class should have a comment
-at the top describing its contents.
-
-```ruby
-# Automatic conversion of one locale to another where it is possible, like
-# American to British English.
-module Translation
-  # Class for converting between text between similar locales.
-  # Right now only conversion between American English -> British, Canadian,
-  # Australian, New Zealand variations is provided.
-  class PrimAndProper
-    def initialize
-      @converters = { :en => { :"en-AU" => AmericanToAustralian.new,
-                               :"en-CA" => AmericanToCanadian.new,
-                               :"en-GB" => AmericanToBritish.new,
-                               :"en-NZ" => AmericanToKiwi.new,
-                             } }
-    end
-
-  ...
-
-  # Applies transforms to American English that are common to
-  # variants of all other English colonies.
-  class AmericanToColonial
-    ...
-  end
-
-  # Converts American to British English.
-  # In addition to general Colonial English variations, changes "apartment"
-  # to "flat".
-  class AmericanToBritish < AmericanToColonial
-    ...
-  end
-```
-
-All files, including data and config files, should have file-level comments. From ```translation/config/colonial_spelling_variants.yml```:
-
-```ruby
-# List of American-to-British spelling variants.
-#
-# This list is made with
-# lib/tasks/list_american_to_british_spelling_variants.rake.
-#
-# It contains words with general spelling variation patterns:
-#   [trave]led/lled, [real]ize/ise, [flav]or/our, [cent]er/re, plus
-# and these extras:
-#   learned/learnt, practices/practises, airplane/aeroplane, ...
-
-sectarianizes: sectarianises
-neutralization: neutralisation
-...
-```
 
 ### Function comments
 
@@ -265,7 +208,7 @@ documentation schemes are [TomDoc](http://tomdoc.org/) and
 [YARD](http://rubydoc.info/docs/yard/file/docs/GettingStarted.md). You can also
 just write things out concisely:
 
-```ruby
+```
 # Return the fallback locales for the_locale.
 # If opts[:exclude_default] is set, the default locale, which is otherwise
 # always the last one in the returned list, will be excluded.
@@ -287,7 +230,7 @@ going to have to explain it at the next code review, you should comment it now.
 Complicated operations get a few lines of comments before the operations
 commence. Non-obvious ones get comments at the end of the line.
 
-```ruby
+```
 def fallbacks_for(the_locale, opts = {})
   # dup() to produce an array that we can mutate.
   ret = @fallbacks[the_locale].dup
@@ -339,7 +282,7 @@ provide more details upon request. A TODO is not a commitment that the person
 referenced will fix the problem. Thus when you create a TODO, it is almost
 always your name that is given.
 
-```ruby
+```
 # TODO(JKB) Make this play nicely with country-specific locales.
 # TODO(max): Fix this by mocking Trebuchet.
 ```
@@ -354,7 +297,7 @@ Never leave commented-out code in our codebase.
 * Use `def` with parentheses when there are arguments. Omit the
   parentheses when the method doesn't accept any arguments.
 
-     ```Ruby
+     ```
      def some_method
        # body omitted
      end
@@ -366,7 +309,7 @@ Never leave commented-out code in our codebase.
 
 * Do not use default arguments. Use an options hash instead.
 
-    ```Ruby
+    ```
     # bad
     def obliterate(things, gently = true, except = [], at = Time.now) 
       # implementation omitted
@@ -387,7 +330,7 @@ Never leave commented-out code in our codebase.
 
 * Use spaces around the `=` operator when assigning default values:
 
-    ```Ruby
+    ```
     # bad
     def some_method(options={})
       # do something...
@@ -407,7 +350,7 @@ Never leave commented-out code in our codebase.
 
 * Never use `then` for multi-line `if/unless`.
 
-    ```Ruby
+    ```
     # bad
     if some_condition then
       # body omitted
@@ -425,7 +368,7 @@ Never leave commented-out code in our codebase.
   condition is simple, and the whole thing fits on one line. Otherwise,
   avoid modifier `if/unless`.
 
-    ```Ruby
+    ```
     # Bad -- this doesn't fit on one line.
     add_trebuchet_experiments_on_page(request_opts[:trebuchet_experiments_on_page]) if request_opts[:trebuchet_experiments_on_page] && !request_opts[:trebuchet_experiments_on_page].empty?
 
@@ -445,7 +388,7 @@ Never leave commented-out code in our codebase.
 
 * Never use `unless` with `else`. Rewrite these with the positive case first.
 
-    ```Ruby
+    ```
     # bad
     unless success?
       puts 'failure'
@@ -463,7 +406,7 @@ Never leave commented-out code in our codebase.
 
 * Avoid `unless` with multiple conditions.
 
-    ```Ruby
+    ```
       # bad
       unless foo? && bar?
         puts "baz"
@@ -479,7 +422,7 @@ Never leave commented-out code in our codebase.
   unless the condition contains an assignment (see "Using the return
   value of `=`" below).
 
-    ```Ruby
+    ```
     # bad
     if (x > 10)
       # body omitted
@@ -502,7 +445,7 @@ Never leave commented-out code in our codebase.
   extremely trivial. However, do use the ternary operator(`?:`) over
   `if/then/else/end` constructs for single line conditionals.
 
-    ```Ruby
+    ```
     # bad
     result = if some_condition then something else something_else end
 
@@ -514,7 +457,7 @@ Never leave commented-out code in our codebase.
   also means that ternary operators must not be nested. Prefer
   `if/else` constructs in these cases.
 
-    ```Ruby
+    ```
     # bad
     some_condition ? (nested_condition ? nested_something : nested_something_else) : something_else
 
@@ -537,7 +480,7 @@ Never leave commented-out code in our codebase.
   doesn't introduce a new scope (unlike `each`) and variables defined
   in its block will be visible outside it.
 
-    ```Ruby
+    ```
     arr = [1, 2, 3]
 
     # bad
@@ -556,7 +499,7 @@ Never leave commented-out code in our codebase.
   definitions" (e.g. in Rakefiles and certain DSLs).  Avoid `do...end`
   when chaining.
 
-    ```Ruby
+    ```
     names = ["Bozhidar", "Steve", "Sarah"]
 
     # good
@@ -582,7 +525,7 @@ Never leave commented-out code in our codebase.
 
 * Avoid `return` where not required.
 
-    ```Ruby
+    ```
     # bad
     def some_method(some_arr)
       return some_arr.size
@@ -597,7 +540,7 @@ Never leave commented-out code in our codebase.
 * Using the return value of `=` (an assignment) is ok, but surround the
   assignment with parenthesis.
 
-    ```Ruby
+    ```
     # good - shows intented use of assignment
     if (v = array.grep(/foo/)) ...
 
@@ -610,7 +553,7 @@ Never leave commented-out code in our codebase.
 
 * Use `||=` freely to initialize variables.
 
-    ```Ruby
+    ```
     # set name to Bozhidar, only if it's nil or false
     name ||= 'Bozhidar'
     ```
@@ -618,7 +561,7 @@ Never leave commented-out code in our codebase.
 * Don't use `||=` to initialize boolean variables. (Consider what
   would happen if the current value happened to be `false`.)
 
-    ```Ruby
+    ```
     # bad - would set enabled to true even if it was false
     enabled ||= true
 
@@ -633,7 +576,7 @@ Never leave commented-out code in our codebase.
 
 * Never put a space between a method name and the opening parenthesis.
 
-    ```Ruby
+    ```
     # bad
     f (3 + 2) + 1
 
@@ -647,7 +590,7 @@ Never leave commented-out code in our codebase.
 
 * Use `_` for unused block parameters.
 
-    ```Ruby
+    ```
     # bad
     result = hash.map { |k, v| v + 1 }
 
@@ -659,7 +602,7 @@ Never leave commented-out code in our codebase.
   reading an attribute or calling one method with no arguments, use the `&:`
   shorthand.
 
-    ```ruby
+    ```
     # bad
     bluths.map { |bluth| bluth.occupation }
     bluths.select { |bluth| bluth.blue_self? }
@@ -686,7 +629,7 @@ Never leave commented-out code in our codebase.
   should only exist if a non-bang method exists. ([More on this][ruby-naming-bang]).
 
 * Name throwaway variables "_".
-    ```Ruby
+    ```
     payment, _ = Payment.complete_paypal_payment!(params[:token], native_currency, created_at)
     ```
 
@@ -695,7 +638,7 @@ Never leave commented-out code in our codebase.
 * Avoid the usage of class (`@@`) variables due to their "nasty" behavior
 in inheritance.
 
-    ```Ruby
+    ```
     class Parent
       @@class_var = 'parent'
 
@@ -718,7 +661,7 @@ in inheritance.
 * Use `def self.method` to define singleton methods. This makes the methods
   more resistant to refactoring changes.
 
-    ```Ruby
+    ```
     class TestClass
       # bad
       def TestClass.some_method
@@ -733,7 +676,7 @@ in inheritance.
 * Avoid `class << self` except when necessary, e.g. single accessors and aliased
   attributes.
 
-    ```Ruby
+    ```
     class TestClass
       # bad
       class << self
@@ -765,7 +708,7 @@ in inheritance.
 * Indent the `public`, `protected`, and `private` methods as much the
   method definitions they apply to. Leave one blank line above them.
 
-    ```Ruby
+    ```
     class SomeClass
       def public_method
         # ...
@@ -781,7 +724,7 @@ in inheritance.
 
 * Don't use exceptions for flow of control.
 
-    ```Ruby
+    ```
     # bad
     begin
       n / d
@@ -799,7 +742,7 @@ in inheritance.
 
 * Avoid rescuing the `Exception` class.
 
-    ```Ruby
+    ```
     # bad
     begin
       # an exception occurs here
@@ -831,7 +774,7 @@ in inheritance.
 
 * Use symbols instead of strings as hash keys.
 
-    ```Ruby
+    ```
     # bad
     hash = { 'one' => 1, 'two' => 2, 'three' => 3 }
 
@@ -858,7 +801,7 @@ in inheritance.
 
 * Prefer string interpolation instead of string concatenation:
 
-    ```Ruby
+    ```
     # bad
     email_with_name = user.name + ' <' + user.email + '>'
 
@@ -869,7 +812,7 @@ in inheritance.
     Furthermore, keep in mind Ruby 1.9-style interpolation. Let's say you have
     are composing cache keys like this:
 
-    ```ruby
+    ```
     CACHE_KEY = '_store'
     
     cache.write(@user.id + CACHE_KEY)
@@ -877,7 +820,7 @@ in inheritance.
 
     Prefer instead string interpolation instead of string concatentation:
 
-    ```ruby
+    ```
     CACHE_KEY = '%d_store'
 
     cache.write(CACHE_KEY % @user.id)
@@ -887,7 +830,7 @@ in inheritance.
   Instead, use `String#<<`. Concatenation mutates the string instance in-place
   and is always faster than `String#+`, which creates a bunch of new string objects.
 
-    ```Ruby
+    ```
     # good and also fast
     html = ''
     html << '<h1>Page title</h1>'
@@ -901,7 +844,7 @@ in inheritance.
 
 Use hashrocket syntax for Hash literals instead of the JSON style introduced in 1.9.
 
-	```Ruby
+	```
 	#bad
 	user = {
 		login: "Defunkt",
@@ -929,7 +872,7 @@ Use hashrocket syntax for Hash literals instead of the JSON style introduced in 
 * Avoid using $1-9 as it can be hard to track what they contain. Named groups
   can be used instead.
 
-    ```Ruby
+    ```
     # bad
     /(regexp)/ =~ string
     ...
@@ -944,7 +887,7 @@ Use hashrocket syntax for Hash literals instead of the JSON style introduced in 
 * Be careful with `^` and `$` as they match start/end of line, not string
   endings.  If you want to match the whole string use: `\A` and `\Z`.
 
-    ```Ruby
+    ```
     string = "some injection\nusername"
     string[/^username$/]   # matches
     string[/\Ausername\Z/] # don't match
@@ -953,7 +896,7 @@ Use hashrocket syntax for Hash literals instead of the JSON style introduced in 
 * Use `x` modifier for complex regexps. This makes them more readable and you
   can add some useful comments. Just be careful as spaces are ignored.
 
-    ```Ruby
+    ```
     regexp = %r{
       start         # some text
       \s            # white space char
@@ -967,14 +910,14 @@ Use hashrocket syntax for Hash literals instead of the JSON style introduced in 
 
 * Use `%w` freely.
 
-    ```Ruby
+    ```
     STATES = %w(draft open closed)
     ```
 
 * Use `%()` for single-line strings which require both interpolation
   and embedded double-quotes. For multi-line strings, prefer heredocs.
 
-    ```Ruby
+    ```
     # bad (no interpolation needed)
     %(<div class="text">Some text</div>)
     # should be '<div class="text">Some text</div>'
@@ -993,7 +936,7 @@ Use hashrocket syntax for Hash literals instead of the JSON style introduced in 
 
 * Use `%r` only for regular expressions matching *more than* one '/' character.
 
-    ```Ruby
+    ```
     # bad
     %r(\s+)
 
@@ -1026,7 +969,7 @@ of their rhythm when they go to read it. Avoid this.
 
 Changes to an object should occur in instance methods, not in class methods, controller methods, etc.
 
-    ```Ruby
+    ```
     # bad
     profile_views = ProfileView.where(:article_id => article_id)
 
@@ -1055,7 +998,7 @@ immediately after the response, the timeout limit should be no longer than
 3 seconds. How this is done depends on the library being used. Here is an
 example using HTTParty:
 
-  ```Ruby
+  ```
   begin
     response = Timeout::timeout(3) { self.get(query_url) }
   rescue Timeout::Error => e
