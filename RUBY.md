@@ -24,10 +24,11 @@ Be like Bruce Lee and take what is useful.
   9.  [Exceptions](#exceptions)
   10. [Collections](#collections)
   11. [Strings](#strings)
-  12. [Regular Expressions](#regular-expressions)
-  13. [Percent Literals](#percent-literals)
-  14. [Be Consistent](#be-consistent)
-  15. [Object Oriented Design](#rails-conventions-and-object-oriented-design)
+  12. [Hashes](#hashes)    
+  13. [Regular Expressions](#regular-expressions)
+  14. [Percent Literals](#percent-literals)
+  15. [Be Consistent](#be-consistent)
+  16. [Object Oriented Design](#rails-conventions-and-object-oriented-design)
       1. [Instance methods](#instance-methods)
       2. [HTTP Requests](#http-requests)
 
@@ -895,6 +896,33 @@ in inheritance.
       html << "<p>#{paragraph}</p>"
     end
     ```
+
+## Hashes
+
+Use hashrocket syntax for Hash literals instead of the JSON style introduced in 1.9.
+
+	```Ruby
+	#bad
+	user = {
+		login: "Defunkt",
+		name: "Chris Wanstrath"
+	}
+	
+	#bad
+	user = {
+		login: "Defunkt",
+		name: "Chris Wanstrath",
+		"followers-count" => 52390235
+	}
+	
+	#good
+	user = {
+		:login => "Defunkt"
+		:name => "Chris Wanstrath",
+		"followers-count" => 52390235
+	}
+
+	```
 
 ## Regular Expressions
 
