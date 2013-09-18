@@ -896,6 +896,16 @@ in inheritance.
     end
     ```
 
+* Prefer single-quoted strings when you don't need string interpolation or special symbols such as `\t`, `\n`, `'`, etc.
+
+    ```Ruby
+    # bad
+    name = "Bozhidar"
+
+    # good
+    name = 'Bozhidar'
+    ```
+
 ## Regular Expressions
 
 * Avoid using $1-9 as it can be hard to track what they contain. Named groups
