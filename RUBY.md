@@ -841,6 +841,16 @@ in inheritance.
     end
     ```
 
+* Prefer single-quoted strings when you don't need string interpolation or special symbols such as `\t`, `\n`, `'`, etc.
+
+    ```Ruby
+    # bad
+    name = "Bozhidar"
+
+    # good
+    name = 'Bozhidar'
+    ```
+
 ## Hashes
 
 Use hashrocket syntax for Hash literals instead of the JSON style introduced in 1.9.
