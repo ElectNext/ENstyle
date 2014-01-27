@@ -8,3 +8,5 @@ Sometimes we find stuff on the internet that we need every once in a while, or t
 
 * [Allocating Memory for Postgres on Mac OSX](http://support.bitrock.com/article/postgresql-cannot-allocate-memory-on-mac-os-x) Super helpful walkthrough on upping the memory postgres can use on your mac. I've (John) run into problems with my local db freaking out and dying because it runs out of memory or connections or something.
 
+* [Build an HTML Email Template from Scratch](http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/build-an-html-email-template-from-scratch/)
+
