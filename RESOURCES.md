@@ -10,3 +10,7 @@ Sometimes we find stuff on the internet that we need every once in a while, or t
 
 * [Build an HTML Email Template from Scratch](http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/build-an-html-email-template-from-scratch/)
 
+* [Structuring a Sinatra App](http://blog.sourcing.io/structuring-sinatra) - Sometimes we do stuff in Sinatra, this is a good guide for adding some structure to Sinatra apps.
+
+* [Good explanation of how autoloading works in Rails](http://pothibo.com/2013/07/namespace-stuff-in-your-app-folder/)
+
