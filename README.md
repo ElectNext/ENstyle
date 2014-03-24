@@ -1,1 +1,1 @@
-# The ElectNext Programmer Style Guide #
+# The Versa Code Style Guide
