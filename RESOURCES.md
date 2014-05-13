@@ -14,3 +14,4 @@ Sometimes we find stuff on the internet that we need every once in a while, or t
 
 * [Good explanation of how autoloading works in Rails](http://pothibo.com/2013/07/namespace-stuff-in-your-app-folder/)
 
+* [Better Specs](http://betterspecs.org/) Great resource for how to write your specs.
