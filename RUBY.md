@@ -1,7 +1,7 @@
 # Ruby Style Guide
 
 These are standards and conventions we use for Ruby code at [ElectNext](https://electnext.com).
-We've based it off of the awesome [AirBnB Styleguide][airbnb-ruby], 
+We've based it off of the awesome [AirBnB Styleguide][airbnb-ruby],
 which was based on the excellent [Github Ruby Styleguide][github-ruby],
 which in turn was inspired by [Bozhidar Batsov's guide][bbatsov-ruby].
 
@@ -24,7 +24,7 @@ Be like Bruce Lee and take what is useful.
   9.  [Exceptions](#exceptions)
   10. [Collections](#collections)
   11. [Strings](#strings)
-  12. [Hashes](#hashes)    
+  12. [Hashes](#hashes)
   13. [Regular Expressions](#regular-expressions)
   14. [Percent Literals](#percent-literals)
   15. [Be Consistent](#be-consistent)
@@ -311,7 +311,7 @@ Never leave commented-out code in our codebase.
 
     ```
     # bad
-    def obliterate(things, gently = true, except = [], at = Time.now) 
+    def obliterate(things, gently = true, except = [], at = Time.now)
       # implementation omitted
     end
 
@@ -750,14 +750,14 @@ in inheritance.
     rescue Exception
       # exception handling
     end
-    
+
     # good
     begin
       # an exception occurs here
     rescue StandardError
       # exception handling
     end
-    
+
     # acceptable
     begin
       # an exception occurs here
@@ -809,13 +809,13 @@ in inheritance.
     # good
     email_with_name = "#{user.name} <#{user.email}>"
     ```
-    
+
     Furthermore, keep in mind Ruby 1.9-style interpolation. Let's say you have
     are composing cache keys like this:
 
     ```
     CACHE_KEY = '_store'
-    
+
     cache.write(@user.id + CACHE_KEY)
     ```
 
@@ -855,28 +855,30 @@ in inheritance.
 
 Use hashrocket syntax for Hash literals instead of the JSON style introduced in 1.9.
 
-	
-	#bad
-	user = {
-		login: "Defunkt",
-		name: "Chris Wanstrath"
-	}
-	
-	#bad
-	user = {
-		login: "Defunkt",
-		name: "Chris Wanstrath",
-		"followers-count" => 52390235
-	}
-	
-	#good
-	user = {
-		:login => "Defunkt"
-		:name => "Chris Wanstrath",
-		"followers-count" => 52390235
-	}
+There is a good [discussion of this on StackOverflow](http://stackoverflow.com/questions/10004158/is-hash-rocket-deprecated).
 
-	
+    ```Ruby
+    #bad
+    user = {
+      login: "Defunkt",
+      name: "Chris Wanstrath"
+    }
+
+    #bad
+    user = {
+      login: "Defunkt",
+      name: "Chris Wanstrath",
+      "followers-count" => 52390235
+    }
+
+    #good
+    user = {
+      :login => "Defunkt"
+      :name => "Chris Wanstrath",
+      "followers-count" => 52390235
+    }
+    ```
+
 
 ## Regular Expressions
 
@@ -980,7 +982,7 @@ of their rhythm when they go to read it. Avoid this.
 
 Changes to an object should occur in instance methods, not in class methods, controller methods, etc.
 
-    
+
     # bad
     profile_views = ProfileView.where(:article_id => article_id)
 
@@ -999,7 +1001,7 @@ Changes to an object should occur in instance methods, not in class methods, con
     profile_views.each do |pv|
       pv.remove_politician(params[:politician_id])
     end
-    
+
 
 ### HTTP Requests
 
