@@ -1,6 +1,6 @@
 # Ruby Style Guide
 
-These are standards and conventions we use for Ruby code at [ElectNext](https://electnext.com).
+These are standards and conventions we use for Ruby code at [Versa](https://versahq.com).
 We've based it off of the awesome [AirBnB Styleguide][airbnb-ruby],
 which was based on the excellent [Github Ruby Styleguide][github-ruby],
 which in turn was inspired by [Bozhidar Batsov's guide][bbatsov-ruby].
@@ -307,7 +307,7 @@ Never leave commented-out code in our codebase.
      end
      ```
 
-* Do not use default arguments. Use an options hash instead.
+* Do not use default arguments. Use an options hash instead. Better yet, use the [DefaultOptions gem](https://github.com/mertonium/default_options).
 
     ```
     # bad
@@ -326,6 +326,21 @@ Never leave commented-out code in our codebase.
 
       # implementation omitted
     end
+    
+    #better
+    def obliterate(things, opts = {})
+      options = defaults_for opts do
+        gently true     # obliterate with soft-delete
+        except []       # skip obliterating these things
+        at Time.now     # don't obliterate them until later
+      end
+      
+      # You can access the options with dot notation. I.e.:
+      # options.gently
+      # options.except
+      # options.at
+    end
+      
     ```
 
 * Use spaces around the `=` operator when assigning default values:
